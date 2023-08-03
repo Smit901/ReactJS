@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    margin: 25px;
+    font-family: Roboto;
+    background-color: aliceblue;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.active {
+    background: linear-gradient(0deg, rgb(110, 196, 173) 0%, rgb(104, 135, 189) 100%) !important;
+}
+
+.sidebar {
+    width: 30vw;
+    height: 95vh;
+    border-right: 1px solid black;
+}
+
+.sidebar__header {
+    margin-top: 30px;
+}
+
+.sidebar__list {
+    margin: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar__button {
+    font-size: 16px;
+    padding: 1em 3.3em;
+    transform: perspective(200px) rotateX(15deg);
+    color: rgb(0, 0, 0);
+    font-weight: 900;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(0deg, rgb(212, 235, 229) 0%, rgb(186, 204, 236) 100%);
+    box-shadow: rgba(152, 167, 243, 0.2) 0px 40px 29px 0px;
+    will-change: transform;
+    transition: all 0.3s;
+    border-bottom: 2px solid rgb(97, 113, 143);
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.sidebar__button:hover {
+    transform: perspective(180px) rotateX(30deg) translateY(2px);
+}
+
+.sidebar__buttonactive {
+    transform: perspective(170px) rotateX(36deg) translateY(5px);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    height: 95vh;
+
+}
+
+.header {
+    border-bottom: 1px solid black;
+}
+
+.header__topic {
+    display: flex;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    font-size: 20px;
+    height: 120px;
+}
+
+.task__content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.input {
+    padding: 10px;
+    border: none;
+    margin-bottom: 50px;
+    font-size: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+
+
+.svg__style {
+    font-size: 64px;
+    font-family: Arial Black;
+    dominant-baseline: central;
+    text-anchor: middle;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 5s linear alternate infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* CSS */
+.button-85 {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-85:before {
+    content: "";
+    background: linear-gradient(45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.button-85:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+
+/* CSS */
+.button-89 {
+    --b: 3px;
+    /* border thickness */
+    --s: .45em;
+    /* size of the corner */
+    --color: #373B44;
+
+    padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+    color: var(--color);
+    --_p: var(--s);
+    background:
+        conic-gradient(from 90deg at var(--b) var(--b), #0000 90deg, var(--color) 0) var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+    transition: .3s linear, color 0s, background-color 0s;
+    outline: var(--b) solid #0000;
+    outline-offset: .6em;
+    font-size: 19px;
+
+    border: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    height: 30px;
+    width: 100%;
+}
+
+.button-89:hover,
+.button-89:focus-visible {
+    --_p: 0px;
+    outline-color: var(--color);
+    outline-offset: .05em;
+}
+
+.button-89:active {
+    background: var(--color);
+    color: #fff;
+}
+
+.task__list{
+    margin-top: 30px;
+    width: 80%;
+}
+
+.tasklist__container {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.remove__item {
+    font-size: 48px;
+    text-align: center;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+}
