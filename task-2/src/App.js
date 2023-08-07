@@ -8,17 +8,25 @@ const App = () => {
 
   useEffect(() => {
     fetchQuote();
-    
-    console.log("%cEmpty dependancy array", "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px");
+    console.log(
+      "%cEmpty dependancy array",
+      "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px"
+    );
   }, []);
 
-  useEffect(()=>{
-    console.log("%cWithout depandancy", "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px");
-  })
+  useEffect(() => {
+    console.log(
+      "%cWithout depandancy",
+      "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px"
+    );
+  });
 
-  useEffect(()=>{
-    console.log("%cWith dependancy array", "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px");
-  },[quote])
+  useEffect(() => {
+    console.log(
+      "%cWith dependancy array",
+      "color: black; background-color: white; margin: 10px;padding:5px;font-size:20px"
+    );
+  }, [quote]);
 
   const fetchQuote = async () => {
     setError("");
@@ -43,7 +51,6 @@ const App = () => {
         </center>
       </div>
     </div>
-    
   );
 };
 
