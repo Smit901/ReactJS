@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    margin: 10px;
+    font-size: large;
+}
+
+.active {
+    border-bottom: 2px solid black;
+}
+
+.header__container {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(90deg, #a1c4fd 10%, #c2e9fb 90%);
+    width: 60%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content__container {
+    margin: auto;
+    justify-content: center;
+    background-image: linear-gradient(90deg, #a1c4fd 10%, #c2e9fb 90%);
+    width: 60%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    /* height: 80vh; */
+}
+
+.user__card {
+    margin: 10px;
+    background-image: linear-gradient(90deg, #228be6 5%, #3bc9db 95%);
+    border-radius: 10px;
+    letter-spacing: 1px;
+    width: 200px;
+}
+
+.user__card img {
+    height: 250px;
+    width: 200px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+.sub__container {
+    /* margin: 20px; */
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
+
+.user__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+
+
+/* CSS */
+.button-17 {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 42px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 20px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1), opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform, opacity;
+    z-index: 0;
+}
+
+.button-17:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+
+/* * Add User */
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: center;   
+}
+
+.form__field{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+input{
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    outline: none;
+}
+
+.detail__container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.error__message{
+    color: red;
+    font-size: 10px;
+}
+
+.container__header{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.user__container{
+    margin: 50px;
+}
+
+.user__details{
+    display: flex;
+}
+
+.user__subdetails{
+    padding: 30px;
+}
+
+label{
+    font-weight: 400;
+}
