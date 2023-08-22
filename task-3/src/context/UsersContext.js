@@ -9,7 +9,7 @@ const UsersContext = ({ children }) => {
       name: "Smit Dudhat",
       email: "smitdudhdat10@gmail.com",
       password: "12345678",
-      pic: "https://res-console.cloudinary.com/dkszzqegh/thumbnails/transform/v1/image/upload/Y19saW1pdCxoXzE2MDAsd18xNjAwLGZfanBnLGZsX2xvc3N5LmFueV9mb3JtYXQucHJlc2VydmVfdHJhbnNwYXJlbmN5LnByb2dyZXNzaXZl/v1/eGphb3g1bW5lbXJjcWM2cndxaW0=/template_primary",
+      pic: "https://res-console.cloudinary.com/dkszzqegh/thumbnails/transform/v1/image/upload/Y19saW1pdCxoXzE2MDAsd18xNjAwLGZfanBnLGZsX2xvc3N5LmFueV9mb3JtYXQucHJlc2VydmVfdHJhbnNwYXJlbmN5LnByb2dyZXNzaXZl/v1/a3Bxdmc0NzZ1bDcyMzJpc2dlZDQ=/template_primary",
     },
   ]);
 
