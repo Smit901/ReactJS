@@ -102,12 +102,12 @@ const AddUser = () => {
         editUser(id, { id, ...userData });
         setPic("");
         toast.success("User updated...");
-        navigate("/user");
+        navigate(-1);
       } else {
         addUser(userData);
         reset();
         toast.success("User added...");
-        navigate("/user");
+        navigate(-1);
       }
     } else {
       toast.error("Please Select an Image!");
