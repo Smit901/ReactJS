@@ -7,6 +7,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmpty } from "lodash";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
+import config from "../../config/config";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -20,16 +22,30 @@ const AddUser = () => {
   useEffect(() => {
     if (!isEmpty(id)) {
       setIsEdit(true);
-      const data = users.filter((val) => +val.id === +id);
-      if (isEmpty(data)) {
-        setError("Invalid user id!");
-        // setDefaultValue({ name: "", email: "", password: "" });
-      } else {
-        setPic(data[0].pic);
-        setValue("name", data[0].name);
-        setValue("email", data[0].email);
-        setValue("password", data[0].password);
+
+      async function getUserData() {
+        const res = await axios.get(`${config.BASE_URL}/${id}`);
+        if (res.statusText === "OK") {
+          setPic(res.data.pic);
+          setValue("name", res.data.name);
+          setValue("email", res.data.email);
+          setValue("password", res.data.password);
+        } else {
+          setError("Invalid user id!");
+        }
       }
+      getUserData();
+
+      // const data = users.filter((val) => +val.id === +id);
+      // if (isEmpty(data)) {
+      //   setError("Invalid user id!");
+      //   // setDefaultValue({ name: "", email: "", password: "" });
+      // } else {
+      //   setPic(data[0].pic);
+      //   setValue("name", data[0].name);
+      //   setValue("email", data[0].email);
+      //   setValue("password", data[0].password);
+      // }
     } else {
       setIsEdit(false);
     }
@@ -42,6 +58,7 @@ const AddUser = () => {
       .required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
+  
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, setValue, formState } =
     useForm(formOptions);
@@ -136,7 +153,7 @@ const AddUser = () => {
             <TextField
               id="name"
               type="text"
-              label="name"
+              // label="name"
               variant="outlined"
               {...register("name")}
             />
@@ -148,7 +165,7 @@ const AddUser = () => {
             <TextField
               id="email"
               type="text"
-              label="email"
+              // label="email"
               variant="outlined"
               {...register("email")}
             />
@@ -160,7 +177,7 @@ const AddUser = () => {
             <TextField
               id="password"
               type="password"
-              label="password"
+              // label="password"
               variant="outlined"
               {...register("password")}
             />

@@ -10,15 +10,42 @@ const DisplayUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { users, deleteUser } = useContextData();
-  const [search, setSearch] = useState("");
   const [filteredUser, setFilteredUser] = useState(users);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [page, setPage] = useState(1);
-
   let pageNo = searchParams.get("pageNo");
   let searchString = searchParams.get("search");
+  let recordLimit = searchParams.get("recordLimit");
+
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [pageLimit, setPageLimit] = useState(5);
+
+  const defalutQueryString = {
+    pageNo: page,
+    recordLimit: pageLimit,
+  };
+
+  useEffect(() => {
+    // Check if any of the default parameters are not present in the URL
+    for (const [key, value] of Object.entries(defalutQueryString)) {
+      if (!searchParams.has(key)) {
+        searchParams.set(key, value);
+      }
+    }
+    // Update the URL with the default query parameters
+    setSearchParams(searchParams);
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    setPage(pageNo);
+    setSearch(searchString);
+    setPageLimit(recordLimit);
+    if (!searchString) {
+      setSearch("");
+    }
+  }, [pageNo, searchString, recordLimit]);
 
   useEffect(() => {
     const escapedSearch = escapeRegExp(search);
@@ -28,33 +55,16 @@ const DisplayUser = () => {
       return val["name"].match(regex);
     });
     setFilteredUser(result);
-    if (search) {
-      setSearchParams({ pageNo: page, search: search });
-      if (Math.ceil(result.length / 5) < +pageNo) {
-        setSearchParams({ pageNo: 1, search: search });
-      }
-    } else {
-      setSearchParams({ pageNo: pageNo });
+    if (
+      result.slice(+page * pageLimit - pageLimit, +page * pageLimit).length ===
+      0
+    ) {
+      searchParams.set("pageNo", 1);
+      setSearchParams(searchParams);
     }
   }, [search, users]);
 
-  useEffect(() => {
-    if (isEmpty(pageNo)) {
-      setSearchParams({ pageNo: page });
-    } else {
-      setPage(pageNo);
-    }
-    if (!isEmpty(searchString)) setSearch(searchString);
-  }, [pageNo]);
-
-  useEffect(() => {
-    let searchString = searchParams.get("search");
-
-    if (searchString) {
-      setSearch(searchString);
-    }
-  }, []);
-
+  // ! Delete
   useEffect(() => {
     if (!isEmpty(id)) {
       setIsModalOpen(true);
@@ -62,12 +72,8 @@ const DisplayUser = () => {
   }, [id]);
 
   const handleChange = (event, value) => {
-    setPage(value);
-    if (search) {
-      setSearchParams({ pageNo: value, search: search });
-    } else {
-      setSearchParams({ pageNo: value });
-    }
+    searchParams.set("pageNo", value);
+    setSearchParams(searchParams);
   };
 
   const handleOk = () => {
@@ -78,6 +84,22 @@ const DisplayUser = () => {
   const handleCancel = () => {
     navigate("/user");
     setIsModalOpen(false);
+  };
+
+  const handlePageLimit = (e) => {
+    const val = +e.target.value;
+    searchParams.set("recordLimit", val);
+    setSearchParams(searchParams);
+    if (filteredUser.slice(+page * val - val, +page * val).length === 0) {
+      searchParams.set("pageNo", 1);
+      setSearchParams(searchParams);
+    }
+  };
+
+  const handleSearch = (e) => {
+    const val = e.target.value;
+    searchParams.set("search", val);
+    setSearchParams(searchParams);
   };
 
   return (
@@ -118,7 +140,7 @@ const DisplayUser = () => {
       <TextField
         id="search"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={handleSearch}
         label="Search here"
         variant="standard"
       />
@@ -133,40 +155,42 @@ const DisplayUser = () => {
                 <th>Profile Image</th>
                 <th>Actions</th>
               </tr>
-              {filteredUser.slice(+page * 5 - 5, +page * 5).map((val) => {
-                return (
-                  <tr key={val.id}>
-                    <td>
-                      <center>{val.id}</center>
-                    </td>
-                    <td>{val.name}</td>
-                    <td>{val.email}</td>
-                    <td>
-                      <img src={val.pic} alt="" height={100} width={100} />
-                    </td>
-                    <td>
-                      {" "}
-                      <img
-                        src="/delete.png"
-                        alt=""
-                        height={35}
-                        width={35}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => navigate(`/user/delete/${val.id}`)}
-                      />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <img
-                        src="/edit2.png"
-                        alt=""
-                        height={35}
-                        width={35}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => navigate(`/user/edit/${val.id}`)}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+              {filteredUser
+                .slice(+page * pageLimit - pageLimit, +page * pageLimit)
+                .map((val) => {
+                  return (
+                    <tr key={val.id}>
+                      <td>
+                        <center>{val.id}</center>
+                      </td>
+                      <td>{val.name}</td>
+                      <td>{val.email}</td>
+                      <td>
+                        <img src={val.pic} alt="" height={100} width={100} />
+                      </td>
+                      <td>
+                        {" "}
+                        <img
+                          src="/delete.png"
+                          alt=""
+                          height={35}
+                          width={35}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => navigate(`/user/delete/${val.id}`)}
+                        />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img
+                          src="/edit2.png"
+                          alt=""
+                          height={35}
+                          width={35}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => navigate(`/user/edit/${val.id}`)}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         )}
@@ -188,10 +212,16 @@ const DisplayUser = () => {
         }}
       >
         <Pagination
-          count={Math.ceil(filteredUser.length / 5)}
+          count={Math.ceil(filteredUser.length / pageLimit)}
           page={+page}
           onChange={handleChange}
         />
+        &nbsp;&nbsp;&nbsp;
+        <select value={pageLimit} onChange={handlePageLimit}>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+        </select>
       </div>
     </div>
   );
